@@ -8,7 +8,7 @@ pipeline {
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
         }
-        stage('DeployToStaging') {
+        stage('DeployTopreprod') {
             when {
                 branch 'master'
             }
@@ -43,7 +43,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-                input 'Does the staging environment look OK?'
+                input 'Does the preprod environment look OK?'
                 milestone(1)
                 withCredentials([usernamePassword(credentialsId: 'web_logins', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
                     sshPublisher(
